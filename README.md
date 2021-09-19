@@ -11,6 +11,8 @@ npm start
 // Prod build
 npm run build
 ```
+## Question 1&2 attached here
+[doc](YouKraft-Q1&Q2.docx)
 
 ## Deployed in heroku
 [App](https://youkraft-form.herokuapp.com/)
