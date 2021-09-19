@@ -21,5 +21,9 @@ export const validateDataPoint = (dataPoint, type, updatedValue) => {
         }
     }
 
+    if (type === 'email' && !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(updatedValue)) {
+        return 'Must be a valid email format';
+    }
+
     return '';
 };

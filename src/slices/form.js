@@ -39,6 +39,17 @@ export const initialState = {
         },
         {
             id: 4,
+            type: 'email',
+            required: true,
+            name: "email",
+            label: "Email",
+            value: "test123@gmail.com",
+            updatedValue: "test123@gmail.com",
+            min: 5,
+            max: 25,
+        },
+        {
+            id: 5,
             type: 'number',
             required: true,
             label: "Age",

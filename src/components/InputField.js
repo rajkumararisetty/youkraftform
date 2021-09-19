@@ -1,20 +1,47 @@
-import React from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Label, Input } from 'reactstrap';
 import classes from './inputField.module.css';
 
-const InputField = ({ dataPointProps, onChange, errorMessage="" }) => {
-    const {type, label, name, updatedValue = "", required = false, min = null, max = null } = dataPointProps;
+const InputField = ({ dataPointProps, onChange, errorMessage = "" }) => {
+    const { type, label, name, updatedValue = "", required = false, min = null, max = null } = dataPointProps;
+
+    const inputRef = useRef();
+    const timeoutId = useRef(null);
+
+    useEffect(() => {
+        inputRef.current.value = updatedValue;
+    }, [updatedValue]);
+
+    const debounce = useCallback((callback, time) => {
+        if (timeoutId.current) {
+            clearTimeout(timeoutId.current);
+        }
+        timeoutId.current = setTimeout(callback, time);
+    }, []);
+
+    const onTextChange = useCallback((event) => debounce(() => onChange(event.target.value), 300), [debounce]);
+
+    const inputType = useMemo(() => {
+        if (type === 'number') {
+            return 'number';
+        }
+        if (type === 'email') {
+            return 'email';
+        }
+        return 'text';
+    }, [type]);
+
     return (
         <>
             <Label for={name}>{label}{required ? '  *' : ''}</Label>
             <Input
                 className="mt-1"
-                type={type}
+                innerRef={inputRef}
+                type={inputType}
                 id={name}
                 placeholder={`Enter ${label}`}
-                value={updatedValue}
-                onChange={(event) => onChange(event.target.value)}
+                onChange={onTextChange}
                 min={min}
                 max={max}
                 autoComplete="nil"

@@ -16,7 +16,8 @@ const Form = () => {
     }, []);
 
     const renderFormFields = useCallback(({ id, name, type, ...rest }) => {
-        if (type === 'text' || type === 'number') {
+        // @TODO move these to constants
+        if (type === 'text' || type === 'number' || type === 'email') {
             return (
                 <InputField
                     dataPointProps={{ ...rest, type, name }}
