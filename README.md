@@ -11,3 +11,6 @@ npm start
 // Prod build
 npm run build
 ```
+
+## Deployed in heroku
+[App](https://youkraft-form.herokuapp.com/)
